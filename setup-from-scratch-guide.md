@@ -1,6 +1,6 @@
 # Setup From Scratch Guide
 
-This document provides a step-by-step tutorial for people who wish to build and run Optimus on their own compatible HARP platforms.
+This document provides a step-by-step tutorial for people who wish to build and run Optimus on their own [compatible](hardware-and-software-requirements.md) HARP platforms.
 
 Deploying Optimus on a compatible system requires three steps: 1) choosing a set of accelerators and synthesizing them to a bitstream, 2) installing the host software, and 3) booting the guest and installing the guest software.
 
