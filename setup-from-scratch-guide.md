@@ -4,7 +4,7 @@ This document provides a step-by-step tutorial for people who wish to build and 
 
 Deploying Optimus on a compatible system requires three steps: 1) choosing a set of accelerators and synthesizing them to a bitstream, 2) installing the host software, and 3) booting the guest and installing the guest software.
 
-### 3.1 Synthesizing Accelerators
+### 1. Synthesizing Accelerators
 
 After choosing a desired set of accelerators, we need to synthesize these accelerators to a *bitstream* for deployment. This section provides a tutorial of how to synthesize a set of accelerators onto an FPGA, as well as the configuration files we used in our evaluation.
 
@@ -41,7 +41,7 @@ $OPAE_PLATFORM_ROOT/bin/run.sh
 
 After synthesis finishes, you will see a file named "`cci_mux.gbs`" in the directory, which is the generated bitstream.
 
-### 3.2 Optimus Installation and Usage
+### 2. Optimus Installation and Usage
 
 Given a set of bitstreams, we can install the host software, configure the FPGA with a bitstream, and boot virtual machines. The host software includes the Optimus Hypervisor and some user space tools. The Optimus Hypervisor is implemented as a Linux kernel module, which is needed to configure and virtualize the FPGA. The user space tools are used to manage the FPGA from the host.
 
@@ -116,7 +116,7 @@ sudo qemu-system-x86_64 \
 
 With QEMU running, you can now connect to the VM and run the desired applications.
 
-### 3.3 Guest Driver and Library Installation Guide
+### 3. Guest Driver and Library Installation Guide
 
 The last step for deploying Optimus is to the install guest driver and libraries. The driver and libraries communicate with the virtualized hardware, and additionally provide a simple interface to software using the accelerator.
 
