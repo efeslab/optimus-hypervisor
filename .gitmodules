@@ -10,12 +10,6 @@
 [submodule "optimus-guest-driver"]
 	path = optimus-guest-driver
 	url = https://github.com/efeslab/optimus-guest-driver
-[submodule "hardcloud/hardcloud_hw"]
-	path = hardcloud/hardcloud_hw
-	url = https://github.com/efeslab/hardcloud
-[submodule "hardcloud/hardcloud_sw"]
-	path = hardcloud/hardcloud_sw
-	url = https://github.com/efeslab/hardcloud_no_openmp
 [submodule "hardcloud/sw"]
 	path = hardcloud/sw
 	url = https://github.com/efeslab/hardcloud_no_openmp
