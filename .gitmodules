@@ -1,0 +1,27 @@
+[submodule "optimus-host-module"]
+	path = optimus-host-module
+	url = https://github.com/efeslab/optimus-host-module
+[submodule "optimus-intel-fpga-bbb"]
+	path = optimus-intel-fpga-bbb
+	url = https://github.com/efeslab/optimus-intel-fpga-bbb
+[submodule "optimus-opae-sdk"]
+	path = optimus-opae-sdk
+	url = https://github.com/efeslab/optimus-opae-sdk
+[submodule "optimus-guest-driver"]
+	path = optimus-guest-driver
+	url = https://github.com/efeslab/optimus-guest-driver
+[submodule "hardcloud/hardcloud_hw"]
+	path = hardcloud/hardcloud_hw
+	url = https://github.com/efeslab/hardcloud
+[submodule "hardcloud/hardcloud_sw"]
+	path = hardcloud/hardcloud_sw
+	url = https://github.com/efeslab/hardcloud_no_openmp
+[submodule "hardcloud/sw"]
+	path = hardcloud/sw
+	url = https://github.com/efeslab/hardcloud_no_openmp
+[submodule "hardcloud/hw"]
+	path = hardcloud/hw
+	url = https://github.com/efeslab/hardcloud
+[submodule "sssp"]
+	path = sssp
+	url = https://github.com/efeslab/EdgeCentricOnFPGA
