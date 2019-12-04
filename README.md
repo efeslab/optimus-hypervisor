@@ -1,4 +1,4 @@
-# Source Code Availability for Optimus
+# Optimus: A Hypervisor for Shared-Memory FPGA Platforms
 
 All of the source code for Optimus is open source, and is comprised of the following components:
 
@@ -35,3 +35,8 @@ All of the source code for Optimus is open source, and is comprised of the follo
 
 
 
+**Setup Guide**
+
+- Our code is developed and tested using the hardware and software specificed [here](hardware-and-software-requirements.md).
+
+- A step-by-step tutorial is available [here](setup-from-scratch-guide.md) to help you build everything from scratch.
