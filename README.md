@@ -29,8 +29,9 @@ All of the source code for Optimus is open source, and is comprised of the follo
 
 **Benchmarks**
 
-- MemBench, LinkedList, and Bitcoin can be found in https://github.com/efeslab/optimus-intel-fpga-bbb/tree/master/samples/tutorial. We additionally include our ports of three benchmarks from HardCloud (grayscale, sobel, and gaussian) in this repository, as these benchmarks required significant changes to run on our platform.
-- SSSP can be found in https://github.com/efeslab/EdgeCentricOnFPGA.
+- MemBench, LinkedList, SSSP, and Bitcoin can be found in https://github.com/efeslab/optimus-intel-fpga-bbb/tree/master/samples/tutorial. We additionally include our ports of three benchmarks from HardCloud (grayscale, sobel, and gaussian) in this repository, as these benchmarks required significant changes to run on our platform.
 - The hardware portion of the remaining HardCloud benchmarks can be found in https://github.com/efeslab/hardcloud. The software portion of these benchmarks can be found in https://github.com/efeslab/hardcloud_no_openmp. Note that the benchmarks are compiled without OpenMP support.
 - The synthesis configuration for these benchmarks can be found in https://github.com/efeslab/optimus-intel-fpga-bbb/tree/master/samples/tutorial/synth_config.
+
+
 
