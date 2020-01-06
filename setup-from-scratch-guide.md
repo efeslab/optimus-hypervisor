@@ -12,7 +12,7 @@ Quartus Pro 17.0 and Blue Bitstream (BBS) SR-6.4.0 are used to synthesize the ac
 
 First, add the following lines to `.bashrc` or `.zshrc`:
 
-```
+```bash
 export QUARTUS_HOME=/path/to/quartus
 export PATH=$QUARTUS_HOME/bin:$PATH
 export FPGA_BBB_CCI_SRC=/path/to/optimus-intel-fpga-bbb
@@ -27,14 +27,14 @@ We provide configurations for our benchmarks in `optimus-intel-fpga-bbb/samples/
 
 For MemBench, note that you may need to edit `membench.txt` to fill in the correct pathname of the source code. In this example, the top level design is `cci_mux.sv`.
 
-```
+```bash
 cd /path/to/optimus-intel-fpga-bbb/samples/tutorial/synth_config/bbb_8mux
 afu_synth_setup -s membench.txt build_membench_8mux
 ```
 
 This will create a folder in the current directory named "`build_membench_8mux`", which contains the files needed to synthesize the design. You can begin synthesis (2-10 hours) with the following:
 
-```
+```bash
 cd build_membench_8mux
 $OPAE_PLATFORM_ROOT/bin/run.sh
 ```
@@ -47,7 +47,7 @@ Given a set of bitstreams, we can install the host software, configure the FPGA 
 
 The first step is to installing necessary dependencies.
 
-```
+```bash
 yum update
 yum groupinstall 'Development Tools'
 yum install kernel-devel cmake libuuid-devel json-c-devel qemu
@@ -55,7 +55,7 @@ yum install kernel-devel cmake libuuid-devel json-c-devel qemu
 
 Compile and install the host OPAE library, which contains all the user space tools we need to perform the configuration and management.
 
-```
+```bash
 git clone https://github.com/efeslab/optimus-opae-sdk
 cd optimus-opae-sdk
 mkdir build; cd build
@@ -66,7 +66,7 @@ make install
 
 Clone and compile the host kernel module.
 
-```
+```bash
 git clone https://github.com/efeslab/optimus-host-module
 cd optimus-host-module
 make
@@ -75,33 +75,42 @@ make
 
 You can then load a bitstream and reload the driver.
 
-```
+```bash
 sudo /usr/local/bin/fpgaconf -b 0x5e your_benchmark.gbs
 ./reload.sh # For now, you must do this everytime you change the bitstream
 ```
 
+The script of `insdrv.sh` and `reload.sh` are for spatial multiplexing. If you want to use temporal multiplexing, you need to use `temporal-insdrv.sh` and `temporal-reload.sh` instead in the two steps above.
+
 To print information about the bitstream, use the following command:
 
-```
+```bash
 cat /sys/class/fpga/intel-fpga-dev.0/intel-fpga-port.0/optimus/info
 ```
 
 To boot a guest VM, you first need a virtual device. We use the standard *vfio-mdev* interface to create a virtual device. In the example below, we use Accelerator 0 from the bitstream.
 
-```
+```bash
 export VAI_UUID=`uuidgen`
-sudo su -c "echo $VAI_UUID > /sys/class/fpga/intel-fpga-dev.0/intel-fpga-port.0/mdev_supported_types/intel-fpga-port-direct-0/create"
+echo $VAI_UUID | sudo tee /sys/class/fpga/intel-fpga-dev.0/intel-fpga-port.0/mdev_supported_types/intel-fpga-port-direct-0/create
+```
+
+The above example creates a spatially multiplexed virtual accelerator. To create a temporally multiplexed virtual accelerator, you need to use the following commands.
+
+```bash
+export VAI_UUID=`uuidgen`
+echo $VAI_UUID | sudo tee /sys/class/fpga/intel-fpga-dev.0/intel-fpga-port.0/mdev_supported_types/intel-fpga-port-time_slicing-0/create
 ```
 
 Then, allocate huge pages for the guest.
 
-```
+```bash
 echo 40000 | sudo tee /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
 ```
 
 To run QEMU with the virtual device:
 
-```
+```bash
 sudo qemu-system-x86_64 \
     -enable-kvm \
     -smp 4 \
@@ -122,7 +131,7 @@ The last step for deploying Optimus is to the install guest driver and libraries
 
 The first step is to install necessary dependencies in the guest.
 
-```
+```bash
 yum update
 yum groupinstall 'Development Tools'
 yum install kernel-devel cmake libuuid-devel json-c-devel
@@ -130,7 +139,7 @@ yum install kernel-devel cmake libuuid-devel json-c-devel
 
 Reboot the guest to use the modified kernel. The name of the driver is "VAI", which is abbreviated from "virtual accelerator interface". The command `depmod` registers the kernel module, so the driver will be loaded automatically after a virtual accelerator is found.
 
-```
+```bash
 git clone https://github.com/efeslab/optimus-guest-driver
 cd optimus-guest-driver
 make
@@ -140,7 +149,7 @@ depmod
 
 Next, we need to install the guest libraries. Since we modify the Intel's OPAE SDK to support VAI, this will also build the original OPAE libraries.
 
-```
+```bash
 git clone https://github.com/efeslab/optimus-opae-sdk
 # the default branch should be vai, do not modify it
 cd optimus-opae-sdk
@@ -152,7 +161,7 @@ make install
 
 Finally, we need to install the software part of the MPF library. In Optimus, virtual addressing is provided by the hypervisor, so the VTP functionality in MPF is disabled. However, MPF can still provide features such as response ordering.
 
-```
+```bash
 git clone https://github.com/efeslab/optimus-intel-fpga-bbb
 cd optimus-intel-fpga-bbb/BBB_cci_mpf/sw
 mkdir build; cd build
