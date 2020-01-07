@@ -1,6 +1,6 @@
 # Preemption Interface
 
-This document provides a description of Optimus's preemption interface. The accelerator needs to implement this interface to support preemptable temporal multiplexing.
+This document provides a description of Optimus's preemption interface. The accelerator needs to implement this interface to support preemptable temporal multiplexing. In the preemption interface, the MMIO registers can be divided into to sets: (a) *application registers*, and (b) *control registers*. While different accelerators can have different application registers, the interface defines a set of control registers that a preemption-capable accelerator must implement.
 
 **Note:** In the current implementation of Optimus, the hypervisor is only responsible for sending the preempt command to the accelerator. The guest application is responsible for setting up the preemption buffer, checking job status, and resuming the job after it is preempted.
 
@@ -8,7 +8,11 @@ This document provides a description of Optimus's preemption interface. The acce
 
 The guest application needs to allocate a buffer, which is called the *snapshot buffer*, to store the context of the accelerator. The buffer lies in guest user address space, and should be allocated via the memory allocation API provided by the guest library.
 
-### 2. Control Register Definition
+### 2. Application Register Restriction
+
+Any MMIO register with an offset larger than 0x30 can be used as an application register. Application registers cannot have side effects, as write to application registers may be postponed.
+
+### 3. Control Register Definition
 
 The interface is defined as 3 MMIO registers: *CSR_TRANSACTION_CTL*, *CSR_STATE_SIZE_PG*, and *CSR_SNAPSHOT_ADDR*.
 
@@ -35,6 +39,6 @@ The interface is defined as 3 MMIO registers: *CSR_TRANSACTION_CTL*, *CSR_STATE_
 * Offset: 0x28
 * After the snapshot buffer is allocated, the user application should write the cacheline address of the buffer to this register.
 
-### 3. Examples
+### 4. Examples
 
 Among our benchmarks, MemBench and LinkedList are implemented with preemption support. You may use them as examples. You can find MemBench and LinkedList at https://github.com/efeslab/optimus-intel-fpga-bbb/tree/master/samples/tutorial.
