@@ -41,4 +41,4 @@ All of the source code for Optimus is open source, and is comprised of the follo
 - A step-by-step tutorial is available [here](setup-from-scratch-guide.md) to help you build everything from scratch.
 - Some scripts we used in our experiment can be found [here](https://github.com/efeslab/optimus-scripts).
 - The definition of Optimus's preemption interface can be found [here](https://github.com/efeslab/optimus-hypervisor/blob/master/preemption-interface.md).
-
+- A brief guide for pass-through setup can be found [here](https://github.com/efeslab/optimus-hypervisor/blob/master/pass-through-setup-guide.md).
