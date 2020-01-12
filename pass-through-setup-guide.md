@@ -19,6 +19,8 @@ While synthesizing the hardware, you will need to use `nomux.txt` under the acce
 
 ### 3. Assign Device and Boot Virtual Machines
 
-Currently, pass-through does not support using partial reconfiguration inside a VM. As a result, we must reconfigure the FPGA to our desired accelerator before boot the virtual machine.
+Currently, pass-through does not support using partial reconfiguration inside a VM. As a result, we must reconfigure the FPGA to our desired accelerator before booting the virtual machine.
 
-We provide some scripts to help device assignment [here](https://github.com/efeslab/optimus-scripts/tree/master/pt).
+We need to use the VFIO interface to assign the desired accelerator to a VM, and enable pvIOMMU in the QEMU command.
+
+We provide some helping scripts [here](https://github.com/efeslab/optimus-scripts/tree/master/pt).
